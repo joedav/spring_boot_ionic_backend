@@ -3,10 +3,12 @@ package com.joedav.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.joedav.cursomc.domain.Categoria;
 import com.joedav.cursomc.repositories.CategoriaRepository;
+import com.joedav.cursomc.services.exceptions.DataIntegrityException;
 import com.joedav.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -34,5 +36,17 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	// método para deletar uma categoria
+	public void delete(Integer id) {
+		// procura pelo id
+		find(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException de) {
+			throw new DataIntegrityException("Não é possível excluir a categoria por que ela possui produtos!");
+		}
+		
 	}
 }
