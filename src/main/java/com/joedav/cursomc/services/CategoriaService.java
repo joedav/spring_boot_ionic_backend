@@ -26,6 +26,13 @@ public class CategoriaService {
 	
 	// método para inserir uma categoria
 	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	// método par alterar
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
 		return repo.save(obj);
 	}
 }
