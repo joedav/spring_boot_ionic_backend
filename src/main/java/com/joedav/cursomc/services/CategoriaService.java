@@ -1,5 +1,6 @@
 package com.joedav.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,10 @@ public class CategoriaService {
 		} catch (DataIntegrityViolationException de) {
 			throw new DataIntegrityException("Não é possível excluir a categoria por que ela possui produtos!");
 		}
-		
+	}
+	
+	// método para buscar por todas as categorias
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 }
