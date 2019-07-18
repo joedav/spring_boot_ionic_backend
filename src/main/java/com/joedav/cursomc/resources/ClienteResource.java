@@ -1,9 +1,11 @@
 package com.joedav.cursomc.resources;
 
-import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.joedav.cursomc.domain.Categoria;
 import com.joedav.cursomc.domain.Cliente;
-import com.joedav.cursomc.dto.CategoriaDTO;
 import com.joedav.cursomc.dto.ClienteDTO;
+import com.joedav.cursomc.dto.ClienteNewDTO;
 import com.joedav.cursomc.services.ClienteService;
 
 @RestController
@@ -30,20 +31,28 @@ public class ClienteResource {
 	private ClienteService service;
 
 	// método para inserir cliente
-	@RequestMapping(method = RequestMethod.POST)
+	/*@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody ClienteDTO objDTO) {
 		Cliente obj = service.fromDTO(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+	*/
 	// método para buscar todos os clientes
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();
 		List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST) // notação para informar que é um método post
+	public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO objDTO) { /* faz com que o json seja convertido para objeto java automaticamente */
+		Cliente obj = service.fromDTO(objDTO);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
 	// método para buscar cliente por id

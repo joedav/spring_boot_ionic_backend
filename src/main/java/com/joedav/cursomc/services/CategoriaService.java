@@ -66,10 +66,10 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
-	// método para converter a categoria em uma categoria DTO
+	// método para converter a categoria em uma categoria DTO	
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
-	}
+	} 
 	
 	private void updateData(Categoria newObj, Categoria obj) {
 		newObj.setNome(obj.getNome());
