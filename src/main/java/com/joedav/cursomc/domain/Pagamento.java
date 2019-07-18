@@ -15,15 +15,15 @@ import com.joedav.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pagamento implements Serializable{
+public abstract class Pagamento implements Serializable {
 	// serialversion
 	private static final long serialVersionUID = 1L;
-	
+
 	// variaveis
 	@Id
 	private Integer id;
 	private Integer estado;
-	
+
 	// associações mapeamento um pra um
 	// @JsonBackReference // nao permite que o pedido seja serializado no pagamento
 	@JsonIgnore
@@ -31,7 +31,7 @@ public abstract class Pagamento implements Serializable{
 	@JoinColumn(name = "pedido_id")
 	@MapsId
 	private Pedido pedido;
-	
+
 	// cosntrutores
 	public Pagamento() {
 	}
@@ -39,7 +39,7 @@ public abstract class Pagamento implements Serializable{
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCod();
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.pedido = pedido;
 	}
 
@@ -92,5 +92,5 @@ public abstract class Pagamento implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }
