@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -33,8 +34,8 @@ public class Cliente implements Serializable {
 
 	// associacoes
 	// @JsonManagedReference
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos = new ArrayList<>();
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) // para conseguir deletar um cliente mesmo tendo endereços precisa-se usar cascade
+	private List<Endereco> enderecos = new ArrayList<>();		// para não deixar apagar basta deixar normalmente e tratar uma exception
 
 	// set declara que a propriedade não poderá haver numeros repetidos
 	// declara element collection será uma tabela com o nome "TELEFONE"

@@ -37,7 +37,7 @@ public class ClienteResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-	}
+	} teste: salvando cliente com sucesso!
 	*/
 	// método para buscar todos os clientes
 	@RequestMapping(method = RequestMethod.GET)
@@ -47,6 +47,7 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	// novo método para salver cliente com vinculos de outras tabelas
 	@RequestMapping(method = RequestMethod.POST) // notação para informar que é um método post
 	public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO objDTO) { /* faz com que o json seja convertido para objeto java automaticamente */
 		Cliente obj = service.fromDTO(objDTO);
