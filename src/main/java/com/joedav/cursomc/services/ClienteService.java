@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.joedav.cursomc.domain.Cidade;
 import com.joedav.cursomc.domain.Cliente;
@@ -38,8 +39,7 @@ public class ClienteService {
 		enderecoRepo.saveAll((obj.getEnderecos()));
 		return obj;
 	}
-
-	// método para procurar todos os clientes
+	// método para procurar todos os clientes	
 	public List<Cliente> findAll() {
 		return repo.findAll();
 	}

@@ -2,6 +2,14 @@ package com.joedav.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.joedav.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -11,18 +19,27 @@ public class ClienteNewDTO implements Serializable {
 	
 	
 	// propriedades cliente
+	@NotEmpty(message = "Preenchimento do nome é obrigadtório!")
+	@Length(min=5, max=120, message = "A quantidade de caracteres do nome dever ser entre 5 e 120!")
 	private String nome;
+	@NotEmpty(message = "Preenchimento do email é obrigadtório!")
+	@Email
 	private String email;
+	@NotEmpty(message = "Preenchimento do CPF é obrigatório!")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
 	// propriedades endereco
+	@NotEmpty(message = "Preenchimento do logradouro é obrigadtório!")
 	private String logradouro;
+	@NotEmpty(message = "Preenchimento do numero é obrigadtório!")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	@NotEmpty(message = "Preenchimento do cep é obrigadtório!")
 	private String cep;
 	
+	@NotEmpty(message = "Preenchimento de pelo menus um telefone é obrigadtório!")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;

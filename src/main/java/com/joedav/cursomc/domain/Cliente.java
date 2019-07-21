@@ -15,6 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.joedav.cursomc.domain.enums.TipoCliente;
 
